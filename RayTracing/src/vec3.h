@@ -5,7 +5,8 @@
 
 using std::sqrt;
 
-// This class uses double but float could be used as well.
+// TODO: This class uses double but float could be used as well.
+// TODO: vec4 could be used as well to allow homogenous coordinates.
 class vec3 {
 public:
 	// Constructors
@@ -13,6 +14,7 @@ public:
 	vec3(double e0, double e1, double e2) : e{ e0, e1, e2 } {}
 
 	// Element access
+	// TODO: Add rgb acessors?
 	double x() const { return e[0]; }
 	double y() const { return e[1]; }
 	double z() const { return e[2]; }

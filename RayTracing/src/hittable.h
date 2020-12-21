@@ -1,11 +1,14 @@
 #pragma once
 
-#include "ray.h"
+#include "utility.h"
 
-// TODO: Should normals be unit length (it is convenient for shading)?
+class material;
+
+// TODO: Normals are unit length (it is convenient for shading); should they be?
 struct hit_record {
 	point3 p;
 	vec3 normal;
+	shared_ptr<material> mat_ptr;
 	double t{};
 	bool front_face{};
 

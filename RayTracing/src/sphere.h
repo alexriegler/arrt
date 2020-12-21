@@ -12,6 +12,7 @@ public:
 	// Member functions
 	virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override;
 
+	// TODO: Make private?
 public:
 	point3 center;
 	double radius{};

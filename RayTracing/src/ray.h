@@ -18,6 +18,7 @@ public:
 		return orig + t * dir;
 	}
 
+	// TODO: Make private?
 public:
 	point3 orig;
 	vec3 dir;

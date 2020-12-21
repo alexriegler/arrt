@@ -20,6 +20,7 @@ public:
 
 	virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override;
 
+	// TODO: Make private?
 public:
 	std::vector<shared_ptr<hittable>> objects;
 };

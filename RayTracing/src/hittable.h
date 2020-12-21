@@ -4,7 +4,7 @@
 
 class material;
 
-// TODO: Should normals be unit length (it is convenient for shading)?
+// TODO: Normals are unit length (it is convenient for shading); should they be?
 struct hit_record {
 	point3 p;
 	vec3 normal;

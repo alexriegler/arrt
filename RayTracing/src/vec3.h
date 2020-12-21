@@ -51,6 +51,7 @@ public:
 		return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
 	}
 
+	// TODO: Make private?
 public:
 	double e[3];
 };

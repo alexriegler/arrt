@@ -4,6 +4,9 @@
 
 // TODO: Look into stratification for antialiasing.
 // TODO: You could define a direction to look in instead of a point to look at.
+// TODO: Could simulate the order: sensor, then lens, then aperture. Then, figure 
+//       out where to send the rays, and flip the image after it's computed (the 
+//       image is projected upside down on the film). 
 class camera {
 public:
 	// Constructors

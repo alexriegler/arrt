@@ -3,6 +3,7 @@
 #include "utility.h"
 
 #include "hittable.h"
+#include "texture.h"
 
 class material {
 public:
@@ -13,8 +14,9 @@ public:
 
 class lambertian : public material {
 public:
-	// Constructor
-	lambertian(const color& a) : albedo(a) {}
+	// Constructors
+	lambertian(const color& a) : albedo(make_shared<solid_color>(a)) {}
+	lambertian(shared_ptr<texture> a) : albedo(a) {}
 
 	// Member functions
 	// TODO: You can also scatter with some probability p and have attenuation be albedo/p.
@@ -29,12 +31,12 @@ public:
 		}
 
 		scattered = ray(rec.p, scatter_direction, r_in.time());
-		attenuation = albedo;
+		attenuation = albedo->value(rec.u, rec.v, rec.p);
 		return true;
 	}
 
 public:
-	color albedo;
+	shared_ptr<texture> albedo;
 };
 
 class metal : public material {

@@ -1,5 +1,6 @@
 #include "utility.h"
 
+#include "bvh.h"
 #include "camera.h"
 #include "color.h"
 #include "hittable_list.h"
@@ -81,7 +82,11 @@ hittable_list random_scene() {
 	auto material3 = make_shared<metal>(color(0.7, 0.6, 0.5), 0.0);
 	world.add(make_shared<sphere>(point3(4, 1, 0), 1.0, material3));
 
-	return world;
+	// TODO: Remove testing bvh
+	hittable_list objects;
+	objects.add(make_shared<bvh_node>(world, 0, 1));
+
+	return objects;
 }
 
 int main() {

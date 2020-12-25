@@ -57,15 +57,17 @@ public:
 
 class noise_texture : public texture {
 public:
-	// Constructor
+	// Constructors
 	noise_texture() = default;
+	noise_texture(double sc) : scale(sc) {}
 
 	// Member function
 	virtual color value(double u, double v, const point3& p) const override {
 		// TODO: Rename perlin noise so we don't have noise.noise.
-		return color(1, 1, 1) * noise.noise(p);
+		return color(1, 1, 1) * noise.noise(scale * p);
 	}
 
 public:
 	perlin noise;
+	double scale;
 };

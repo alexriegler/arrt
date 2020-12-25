@@ -25,7 +25,7 @@ public:
 		delete[] perm_z;
 	}
 
-	// Member function
+	// Member functions
 	double noise(const point3& p) const {
 		auto u = p.x() - floor(p.x());
 		auto v = p.y() - floor(p.y());
@@ -47,6 +47,20 @@ public:
 		}
 
 		return perlin_interp(c, u, v, w);
+	}
+
+	double turb(const point3& p, int depth = 7) const {
+		auto accum = 0.0;
+		auto temp_p = p;
+		auto weight = 1.0;
+
+		for (int i = 0; i < depth; i++) {
+			accum += weight * noise(temp_p);
+			weight *= 0.5;
+			temp_p *= 2;
+		}
+
+		return fabs(accum);
 	}
 
 private:

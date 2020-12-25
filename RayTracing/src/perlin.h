@@ -30,10 +30,13 @@ public:
 		auto u = p.x() - floor(p.x());
 		auto v = p.y() - floor(p.y());
 		auto w = p.z() - floor(p.z());
-		
-		auto i = static_cast<int>(p.x());
-		auto j = static_cast<int>(p.y());
-		auto k = static_cast<int>(p.z());
+		u = u * u * (3 - 2 * u);
+		v = v * v * (3 - 2 * v);
+		w = w * w * (3 - 2 * w);
+
+		auto i = static_cast<int>(floor(p.x()));
+		auto j = static_cast<int>(floor(p.y()));
+		auto k = static_cast<int>(floor(p.z()));
 		double c[2][2][2];
 
 		for (int di = 0; di < 2; ++di) {

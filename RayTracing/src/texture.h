@@ -1,8 +1,11 @@
 #pragma once
 
 #include "utility.h"
-
 #include "perlin.h"
+
+#include "stb_image.h"
+
+#include <iostream>
 
 // TODO: Optionally could keep constant colors and textures in separate classes.
 class texture {

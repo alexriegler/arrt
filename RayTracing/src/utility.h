@@ -33,7 +33,7 @@ inline double random_double(double min, double max) {
 
 inline int random_int(int min, int max) {
 	// Returns a random integer in [min, max].
-	return static_cast<int>(random_double(min, max + 1));
+	return static_cast<int>(random_double(min, double(max) + 1));
 }
 
 inline double clamp(double x, double min, double max) {

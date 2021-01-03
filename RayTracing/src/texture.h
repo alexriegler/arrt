@@ -1,8 +1,11 @@
 #pragma once
 
 #include "utility.h"
-
 #include "perlin.h"
+
+#include "stb_image.h"
+
+#include <iostream>
 
 // TODO: Optionally could keep constant colors and textures in separate classes.
 class texture {
@@ -73,4 +76,63 @@ public:
 public:
 	perlin noise;
 	double scale;
+};
+
+class image_texture : public texture {
+public:
+	const static int bytes_per_pixel = 3;
+
+	// Constructors
+	image_texture()
+		: data(nullptr), width(0), height(0), bytes_per_scanline(0) {}
+
+	// TODO: Use const string ref instead of c string?
+	image_texture(const char* filename) {
+		auto components_per_pixel = bytes_per_pixel;
+
+		data = stbi_load(filename, &width, &height, &components_per_pixel, components_per_pixel);
+
+		if (!data) {
+			std::cerr << "ERROR: Could not load texture image file '" << filename << "'. \n";
+			width = height = 0;
+		}
+
+		bytes_per_scanline = bytes_per_pixel * width;
+	}
+
+	// Deconstructor
+	~image_texture() {
+		delete data;
+	}
+
+	// Member functions
+	virtual color value(double u, double v, const vec3& p) const override {
+		// If we have no texture data, then return solid cyan as a debugging aid.
+		// TODO: Change debug color to magenta.
+		if (data == nullptr) {
+			return color(0, 1, 1);
+		}
+
+		// Clamp input texture coordinates to [0,1] x [1,0]
+		u = clamp(u, 0.0, 1.0);
+		v = 1.0 - clamp(v, 0.0, 1.0);	// Flip v to image coordinates
+
+		auto i = static_cast<__int64>(u * width);
+		auto j = static_cast<__int64>(v * height);
+
+		// Clamp integer mapping, since actual coordinates should be less than 1.0
+		if (i >= width) { i = static_cast<__int64>(width) - 1; }
+		if (j >= height) { j = static_cast<__int64>(height) - 1; }
+
+		const auto color_scale = 1.0 / 255.0;
+		auto pixel = data + (j * bytes_per_scanline) + (i * bytes_per_pixel);
+
+		return color(color_scale * pixel[0], color_scale * pixel[1], color_scale * pixel[2]);
+	}
+
+private:
+	// TODO: Add "m_" prefix.
+	unsigned char* data;
+	int width, height;
+	int bytes_per_scanline;
 };

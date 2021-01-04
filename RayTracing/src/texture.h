@@ -105,7 +105,7 @@ public:
 		delete data;
 	}
 
-	// Member functions
+	// Member function
 	virtual color value(double u, double v, const vec3& p) const override {
 		// If we have no texture data, then return solid cyan as a debugging aid.
 		// TODO: Change debug color to magenta.

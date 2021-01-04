@@ -7,6 +7,10 @@
 
 class material {
 public:
+	virtual color emitted(double u, double v, const point3& p) const {
+		return color(0, 0, 0);
+	}
+
 	virtual bool scatter(
 		const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered
 	) const = 0;
@@ -99,4 +103,26 @@ private:
 		r0 = r0 * r0;
 		return r0 + (1 - r0) * pow((1 - cosine), 5); 
 	}
+};
+
+class diffuse_light : public material {
+public:
+	// Constructors
+	diffuse_light(shared_ptr<texture> a) : emit(a) {}
+	diffuse_light(color c) : emit(make_shared<solid_color>(c)) {}
+
+	// Member functions
+	virtual bool scatter(
+		const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered
+	) const override {
+		return false;
+	}
+
+	// TODO: Could also add emit function to hit_record instead.
+	virtual color emitted(double u, double v, const point3& p) const override {
+		return emit->value(u, v, p);
+	}
+
+public:
+	shared_ptr<texture> emit;
 };

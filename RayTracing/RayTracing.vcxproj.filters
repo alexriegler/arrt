@@ -71,5 +71,8 @@
     <ClInclude Include="src\aarect.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

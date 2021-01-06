@@ -159,6 +159,7 @@
     <ClInclude Include="src\bvh.h" />
     <ClInclude Include="src\camera.h" />
     <ClInclude Include="src\color.h" />
+    <ClInclude Include="src\constant_medium.h" />
     <ClInclude Include="src\external\stb_image.h" />
     <ClInclude Include="src\hittable.h" />
     <ClInclude Include="src\hittable_list.h" />

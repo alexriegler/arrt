@@ -74,5 +74,8 @@
     <ClInclude Include="src\box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\constant_medium.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

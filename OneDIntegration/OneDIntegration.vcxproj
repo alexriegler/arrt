@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{8fa7a5a0-9622-40ad-9e33-af3f417a3e46}</ProjectGuid>
-    <RootNamespace>MonteCarlo</RootNamespace>
+    <ProjectGuid>{491d159e-c113-4830-bb25-4f371f679780}</ProjectGuid>
+    <RootNamespace>OneDIntegration</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="pi.cpp" />
+    <ClCompile Include="integrate_x_sq.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

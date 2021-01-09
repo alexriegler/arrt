@@ -2,24 +2,31 @@
 
 #include <iostream>
 #include <iomanip>
-#include <math.h>
-#include <stdlib.h>
 
 int main() {
 	int inside_circle = 0;
-	int runs = 0;
-	std::cout << std::fixed << std::setprecision(12);
-	while (true) {
-		runs++;
-		auto x = random_double(-1, 1);
-		auto y = random_double(-1, 1);
-		if ((x * x) + (y * y) < 1) {
-			inside_circle++;
-		}
+	int inside_circle_stratified = 0;
+	int sqrt_N = 10000;
+	
+	for (int i = 0; i < sqrt_N; ++i) {
+		for (int j = 0; j < sqrt_N; ++j) {
+			auto x = random_double(-1, 1);
+			auto y = random_double(-1, 1);
+			if ((x * x) + (y * y) < 1) {
+				inside_circle++;
+			}
 
-		if (runs % 100000 == 0) {
-			auto pi_estimate = 4 * static_cast<double>(inside_circle) / runs;
-			std::cout << "Estimate of Pi = " << pi_estimate << '\r';
+			x = 2 * ((i + random_double()) / sqrt_N) - 1;
+			y = 2 * ((j + random_double()) / sqrt_N) - 1;
+			if ((x * x) + (y * y) < 1) {
+				inside_circle_stratified++;
+			}
 		}
 	}
+	int N = sqrt_N * sqrt_N;
+	auto pi_estimate = 4 * static_cast<double>(inside_circle) / N;
+	auto pi_estimate_strat = 4 * static_cast<double>(inside_circle_stratified) / N;
+	std::cout << std::fixed << std::setprecision(12);
+	std::cout << "Regular    Estimate of Pi = " << pi_estimate << '\n';
+	std::cout << "Stratified Estimate of Pi = " << pi_estimate_strat << '\n';
 }

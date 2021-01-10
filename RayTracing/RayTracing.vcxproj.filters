@@ -80,5 +80,8 @@
     <ClInclude Include="src\onb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\pdf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

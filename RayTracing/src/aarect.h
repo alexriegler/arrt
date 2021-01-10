@@ -38,7 +38,7 @@ public:
 		shared_ptr<material> mat)
 		: x0(_x0), x1(_x1), z0(_z0), z1(_z1), k(_k), mp(mat) {}
 
-	// Member functions
+	// Functions
 	virtual bool hit(const ray& r, double t_min, double t_max, hit_record& rec) const override;
 
 	virtual bool bounding_box(double time0, double time1, aabb& output_box) const override {
@@ -47,6 +47,25 @@ public:
 		// TODO: Add epsilon constant.
 		output_box = aabb(point3(x0, k - 0.0001, z0), point3(x1, k + 0.0001, z1));
 		return true;
+	}
+
+	virtual double pdf_value(const point3& origin, const vec3& v) const override {
+		hit_record rec;
+		// TODO: Epsilon
+		if (!(this->hit(ray(origin, v), 0.001, infinity, rec))) {
+			return 0;
+		}
+
+		auto area = (x1 - x0) * (z1 - z0);
+		auto distance_squared = rec.t * rec.t * v.length_squared();
+		auto cosine = fabs(dot(v, rec.normal) / v.length());
+
+		return distance_squared / (cosine * area);
+	}
+
+	virtual vec3 random(const point3& origin) const override {
+		auto random_point = point3(random_double(x0, x1), k, random_double(z0, z1));
+		return random_point - origin;
 	}
 
 public:

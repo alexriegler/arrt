@@ -1,10 +1,8 @@
 #pragma once
 
-#include <cmath>
-#include <iostream>
+#include "utility.h"
 
-using std::sqrt;
-using std::fabs;
+#include <iostream>
 
 // TODO: This class uses double but float could be used as well.
 // TODO: vec4 could be used as well to allow homogenous coordinates.
@@ -152,6 +150,18 @@ inline vec3 random_in_hemisphere(const vec3& normal) {
 	else {
 		return -in_unit_sphere;
 	}
+}
+
+inline vec3 random_cosine_direction() {
+	auto r1 = random_double();
+	auto r2 = random_double();
+	auto z = sqrt(1 - r2);
+
+	auto phi = 2 * pi * r1;
+	auto x = cos(phi) * sqrt(r2);
+	auto y = sin(phi) * sqrt(r2);
+
+	return vec3(x, y, z);
 }
 
 inline vec3 reflect(const vec3& v, const vec3& n) {

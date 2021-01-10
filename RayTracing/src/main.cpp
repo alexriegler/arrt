@@ -28,13 +28,30 @@ color ray_color(const ray& r, const color& background, const hittable& world, in
 
 	ray scattered;
 	color attenuation;
-	color emitted = rec.mat_ptr->emitted(rec.u, rec.v, rec.p);
+	color emitted = rec.mat_ptr->emitted(r, rec, rec.u, rec.v, rec.p);
 	double pdf;
 	color albedo;
 
 	if (!rec.mat_ptr->scatter(r, rec, albedo, scattered, pdf)) {
 		return emitted;
 	}
+	auto on_light = point3(random_double(213, 343), 554, random_double(227, 332));
+	auto to_light = on_light - rec.p;
+	auto distance_squared = to_light.length_squared();
+	to_light = unit_vector(to_light);
+
+	if (dot(to_light, rec.normal) < 0) {
+		return emitted;
+	}
+
+	auto light_area = static_cast<double>((343 - 213) * (332 - 227));
+	auto light_cosine = fabs(to_light.y());
+	if (light_cosine < 0.000001) {
+		return emitted;
+	}
+
+	pdf = distance_squared / (light_cosine * light_area);
+	scattered = ray(rec.p, to_light, r.time());
 
 	return emitted 
 		+ albedo * rec.mat_ptr->scattering_pdf(r, rec, scattered)
@@ -52,7 +69,7 @@ hittable_list cornell_box() {
 	// Room
 	objects.add(make_shared<yz_rect>(0, 555, 0, 555, 555, green));
 	objects.add(make_shared<yz_rect>(0, 555, 0, 555, 0, red));
-	objects.add(make_shared<xz_rect>(213, 343, 227, 332, 554, light));
+	objects.add(make_shared<flip_face>(make_shared<xz_rect>(213, 343, 227, 332, 554, light)));
 	objects.add(make_shared<xz_rect>(0, 555, 0, 555, 555, white));
 	objects.add(make_shared<xz_rect>(0, 555, 0, 555, 0, white));
 	objects.add(make_shared<xy_rect>(0, 555, 0, 555, 555, white));
@@ -76,7 +93,7 @@ int main() {
 	const auto aspect_ratio = 1.0 / 1.0;
 	const int image_width = 600;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
-	const int samples_per_pixel = 100;
+	const int samples_per_pixel = 10;
 	const int max_depth = 50;
 
 	// World

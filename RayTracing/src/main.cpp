@@ -28,7 +28,7 @@ color ray_color(const ray& r, const color& background, const hittable& world, in
 
 	ray scattered;
 	color attenuation;
-	color emitted = rec.mat_ptr->emitted(rec.u, rec.v, rec.p);
+	color emitted = rec.mat_ptr->emitted(r, rec, rec.u, rec.v, rec.p);
 	double pdf;
 	color albedo;
 
@@ -69,7 +69,7 @@ hittable_list cornell_box() {
 	// Room
 	objects.add(make_shared<yz_rect>(0, 555, 0, 555, 555, green));
 	objects.add(make_shared<yz_rect>(0, 555, 0, 555, 0, red));
-	objects.add(make_shared<xz_rect>(213, 343, 227, 332, 554, light));
+	objects.add(make_shared<flip_face>(make_shared<xz_rect>(213, 343, 227, 332, 554, light)));
 	objects.add(make_shared<xz_rect>(0, 555, 0, 555, 555, white));
 	objects.add(make_shared<xz_rect>(0, 555, 0, 555, 0, white));
 	objects.add(make_shared<xy_rect>(0, 555, 0, 555, 555, white));

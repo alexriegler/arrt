@@ -4,6 +4,7 @@
 
 #include "hittable.h"
 #include "onb.h"
+#include "pdf.h"
 #include "texture.h"
 
 class material {

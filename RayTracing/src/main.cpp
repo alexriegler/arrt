@@ -35,15 +35,19 @@ color ray_color(
 
 	scatter_record srec;
 	color emitted = rec.mat_ptr->emitted(r, rec, rec.u, rec.v, rec.p);
-	if (!rec.mat_ptr->scatter(r, rec, srec)) {
+
+	if (!(rec.mat_ptr->scatter(r, rec, srec))) {
 		return emitted;
 	}
 
-	auto light_ptr = make_shared<hittable_pdf>(lights, rec.p);
-	mixture_pdf mixed_pdf(light_ptr, srec.pdf_ptr);
+	if (srec.is_specular) {
+		return srec.attenuation * ray_color(srec.specular_ray, background, world, lights, depth - 1);
+	}
 
-	ray scattered = ray(rec.p, mixed_pdf.generate(), r.time());
-	auto pdf_val = mixed_pdf.value(scattered.direction());
+	auto light_ptr = make_shared<hittable_pdf>(lights, rec.p);
+	mixture_pdf p(light_ptr, srec.pdf_ptr);
+	ray scattered = ray(rec.p, p.generate(), r.time());
+	auto pdf_val = p.value(scattered.direction());
 
 	return emitted 
 		+ srec.attenuation * rec.mat_ptr->scattering_pdf(r, rec, scattered)
@@ -66,16 +70,15 @@ hittable_list cornell_box() {
 	objects.add(make_shared<xz_rect>(0, 555, 0, 555, 0, white));
 	objects.add(make_shared<xy_rect>(0, 555, 0, 555, 555, white));
 
-	// Boxes
-	shared_ptr<hittable> box1 = make_shared<box>(point3(0, 0, 0), point3(165, 330, 165), white);
+	// Box and sphere
+	shared_ptr<material> aluminum = make_shared<metal>(color(0.8, 0.85, 0.88), 0.0);
+	shared_ptr<hittable> box1 = make_shared<box>(point3(0, 0, 0), point3(165, 330, 165), aluminum);
 	box1 = make_shared<rotate_y>(box1, 15);
 	box1 = make_shared<translate>(box1, vec3(265, 0, 295));
 	objects.add(box1);
 
-	shared_ptr<hittable> box2 = make_shared<box>(point3(0, 0, 0), point3(165, 165, 165), white);
-	box2 = make_shared<rotate_y>(box2, -18);
-	box2 = make_shared<translate>(box2, vec3(130, 0, 65));
-	objects.add(box2);
+	auto glass = make_shared<dielectric>(1.5);
+	objects.add(make_shared<sphere>(point3(190, 90, 190), 90, glass));
 	
 	return objects;
 }
@@ -85,7 +88,7 @@ int main() {
 	const auto aspect_ratio = 1.0 / 1.0;
 	const int image_width = 600;
 	const int image_height = static_cast<int>(image_width / aspect_ratio);
-	const int samples_per_pixel = 1000;
+	const int samples_per_pixel = 100;
 	const int max_depth = 50;
 
 	// World

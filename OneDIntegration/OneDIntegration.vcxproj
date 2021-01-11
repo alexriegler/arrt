@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{5c35e167-8a66-4516-af98-d967ea53fd48}</ProjectGuid>
-    <RootNamespace>RayTracing</RootNamespace>
+    <ProjectGuid>{491d159e-c113-4830-bb25-4f371f679780}</ProjectGuid>
+    <RootNamespace>OneDIntegration</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -88,9 +88,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)RayTracing\src</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\external</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -105,8 +104,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)RayTracing\src</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\external</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,9 +120,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)RayTracing\src</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\external</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,8 +136,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)RayTracing\src</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
-      <AdditionalIncludeDirectories>$(ProjectDir)src\external</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -149,30 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\external\stb_image.cpp" />
-    <ClCompile Include="src\main.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\aabb.h" />
-    <ClInclude Include="src\aarect.h" />
-    <ClInclude Include="src\box.h" />
-    <ClInclude Include="src\bvh.h" />
-    <ClInclude Include="src\camera.h" />
-    <ClInclude Include="src\color.h" />
-    <ClInclude Include="src\constant_medium.h" />
-    <ClInclude Include="src\external\stb_image.h" />
-    <ClInclude Include="src\hittable.h" />
-    <ClInclude Include="src\hittable_list.h" />
-    <ClInclude Include="src\material.h" />
-    <ClInclude Include="src\moving_sphere.h" />
-    <ClInclude Include="src\onb.h" />
-    <ClInclude Include="src\pdf.h" />
-    <ClInclude Include="src\perlin.h" />
-    <ClInclude Include="src\ray.h" />
-    <ClInclude Include="src\sphere.h" />
-    <ClInclude Include="src\texture.h" />
-    <ClInclude Include="src\utility.h" />
-    <ClInclude Include="src\vec3.h" />
+    <ClCompile Include="integrate_x_sq.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

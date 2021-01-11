@@ -1,10 +1,8 @@
 #pragma once
 
-#include <cmath>
-#include <iostream>
+#include "utility.h"
 
-using std::sqrt;
-using std::fabs;
+#include <iostream>
 
 // TODO: This class uses double but float could be used as well.
 // TODO: vec4 could be used as well to allow homogenous coordinates.

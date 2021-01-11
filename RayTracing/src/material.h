@@ -7,10 +7,17 @@
 #include "pdf.h"
 #include "texture.h"
 
+struct scatter_record {
+	ray specular_ray;
+	bool is_specular;
+	color attenuation;
+	shared_ptr<pdf> pdf_ptr;
+};
+
 class material {
 public:
 	virtual bool scatter(
-		const ray& r_in, const hit_record& rec, color& albedo, ray& scattered, double& pdf
+		const ray& r_in, const hit_record& rec, scatter_record& srec
 	) const {
 		return false;
 	}
@@ -21,7 +28,9 @@ public:
 		return 0;
 	}
 
-	virtual color emitted(const ray& r_in, const hit_record& rec, double u, double v, const point3& p) const {
+	virtual color emitted(
+		const ray& r_in, const hit_record& rec, double u, double v, const point3& p
+	) const {
 		return color(0, 0, 0);
 	}
 };
@@ -34,15 +43,11 @@ public:
 
 	// Functions
 	virtual bool scatter(
-		const ray& r_in, const hit_record& rec, color& alb, ray& scattered, double& pdf
+		const ray& r_in, const hit_record& rec, scatter_record& srec
 	) const override {
-		onb uvw;
-		// TODO: Should this be the constructor?
-		uvw.build_from_w(rec.normal);
-		auto direction = uvw.local(random_cosine_direction());
-		scattered = ray(rec.p, unit_vector(direction), r_in.time());
-		alb = albedo->value(rec.u, rec.v, rec.p);
-		pdf = dot(uvw.w(), scattered.direction()) / pi;
+		srec.is_specular = false;
+		srec.attenuation = albedo->value(rec.u, rec.v, rec.p);
+		srec.pdf_ptr = make_shared<cosine_pdf>(rec.normal);
 		return true;
 	}
 
@@ -125,13 +130,7 @@ public:
 	diffuse_light(shared_ptr<texture> a) : emit(a) {}
 	diffuse_light(color c) : emit(make_shared<solid_color>(c)) {}
 
-	// Functions
-	virtual bool scatter(
-		const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered, double& pdf
-	) const override {
-		return false;
-	}
-
+	// Function
 	// TODO: Could also add emit function to hit_record instead.
 	virtual color emitted(
 		const ray& r_in, const hit_record& rec, double u, double v, const point3& p

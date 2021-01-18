@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RayTracing", "RayTracing\RayTracing.vcxproj", "{5C35E167-8A66-4516-AF98-D967EA53FD48}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ARRT", "ARRT\ARRT.vcxproj", "{5C35E167-8A66-4516-AF98-D967EA53FD48}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

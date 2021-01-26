@@ -1,4 +1,4 @@
-# AART
+# arrt
 > Alex Riegler's Ray Tracer
 
 ![Cornell Box using Monte Carlo Example](./Images/image3.X1_cornell_box.png)

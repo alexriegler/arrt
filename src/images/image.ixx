@@ -1,6 +1,6 @@
 export module arrt.image;
 
-import arrt.core;
+import arrt.utility;
 
 namespace arrt {
 	export struct ImageOptions {

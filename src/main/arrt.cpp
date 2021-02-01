@@ -1,4 +1,4 @@
-import arrt.core;
+import arrt.utility;
 import arrt.image;
 import arrt.renderer;
 

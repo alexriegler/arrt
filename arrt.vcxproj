@@ -159,9 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\core\constants.ixx" />
-    <ClCompile Include="src\core\core.ixx" />
-    <ClCompile Include="src\core\types.ixx" />
     <ClCompile Include="src\core\utility.ixx" />
     <ClCompile Include="src\images\image.ixx" />
     <ClCompile Include="src\main\arrt.cpp" />

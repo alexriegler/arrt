@@ -1,12 +1,19 @@
-export module arrt.core.utility;
-
-// Headers
-
-// Modules
-import arrt.core.constants;
-import arrt.core.types;
+export module arrt.utility;
 
 import std.core;
+
+// Typedefs
+#ifdef ARRT_FLOAT_AS_DOUBLE
+	export typedef double Float;
+#else
+	export typedef float Float;
+#endif // ARRT_FLOAT_AS_DOUBLE
+
+// Constants
+namespace arrt {
+	export inline constexpr Float infinity = std::numeric_limits<Float>::infinity();
+	export inline constexpr Float pi = std::numbers::pi_v<Float>;
+}
 
 // Utility functions
 namespace arrt {

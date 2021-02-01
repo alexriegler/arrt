@@ -1,6 +1,6 @@
 export module arrt.renderer;
 
-import arrt.core;
+import arrt.utility;
 import arrt.image;
 import std.core;
 

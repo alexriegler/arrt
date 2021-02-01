@@ -1,7 +1,7 @@
-export module arrt.core:constants;
+export module arrt.core.constants;
 
 // Modules
-import :types;
+import arrt.core.types;
 
 import std.core;
 

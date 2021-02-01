@@ -1,14 +1,14 @@
-export module arrt.core:utility;
+export module arrt.core.utility;
 
 // Headers
 
 // Modules
-import :constants;
-import :types;
+import arrt.core.constants;
+import arrt.core.types;
 
 import std.core;
 
-// Functions
+// Utility functions
 namespace arrt {
 	// Converts a given degree value to radians.
 	export constexpr Float degrees_to_radians(Float degrees) {

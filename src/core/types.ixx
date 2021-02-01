@@ -1,4 +1,4 @@
-export module arrt.types;
+export module arrt.core:types;
 
 // Typedefs
 #ifdef ARRT_FLOAT_AS_DOUBLE

@@ -27,5 +27,8 @@
     <ClCompile Include="src\core\utility.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\core\core.ixx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

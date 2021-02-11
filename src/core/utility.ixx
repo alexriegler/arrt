@@ -1,22 +1,24 @@
+module;
+
+#include <limits>
+#include <numbers>
+#include <random>
+
 export module arrt.utility;
 
-import std.core;
-
-// Typedefs
-#ifdef ARRT_FLOAT_AS_DOUBLE
-	export typedef double Float;
-#else
-	export typedef float Float;
-#endif // ARRT_FLOAT_AS_DOUBLE
-
-// Constants
 namespace arrt {
+	// Typedefs
+	#ifdef ARRT_FLOAT_AS_DOUBLE
+		export typedef double Float;
+	#else
+		export typedef float Float;
+	#endif // ARRT_FLOAT_AS_DOUBLE
+
+	// Constants
 	export inline constexpr Float infinity = std::numeric_limits<Float>::infinity();
 	export inline constexpr Float pi = std::numbers::pi_v<Float>;
-}
 
-// Utility functions
-namespace arrt {
+	// Utility functions
 	// Converts a given degree value to radians.
 	export constexpr Float degrees_to_radians(Float degrees) {
 		return degrees * pi / static_cast<Float>(180.0);
@@ -50,5 +52,17 @@ namespace arrt {
 		else {
 			return x;
 		}
+	}
+
+	// Checks if x is not a number.
+	export template <typename T>
+	inline bool is_nan(const T x) {
+		return std::isnan(x);
+	}
+
+	// Checks if x is not a number.
+	export template <>
+	inline bool is_nan(const int x) {
+		return false;
 	}
 }

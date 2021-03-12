@@ -20,32 +20,34 @@ namespace arrt {
 		Vector3(T x, T y, T z) : x(x), y(y), z(z) { assert(!has_nans()); }
 
 		// Assignments
+		
 		// Destructor
+		
 		// Functions
-		bool has_nans() const { return is_nan(x) || is_nan(y) || is_nan(z); }
+		constexpr bool has_nans() const { return is_nan(x) || is_nan(y) || is_nan(z); }
 
-		bool operator==(const Vector3<T>& v) const = default;
+		constexpr bool operator==(const Vector3<T>& v) const = default;
 
-		T operator[](int i) const {
+		constexpr T operator[](int i) const {
 			assert(i >= 0 && i <= 2);
 			if (i == 0) { return x; }
 			if (i == 1) { return y; }
 			return z;
 		}
 
-		T& operator[](int i) {
+		constexpr T& operator[](int i) {
 			assert(i >= 0 && i <= 2);
 			if (i == 0) { return x; }
 			if (i == 1) { return y; }
 			return z;
 		}
 
-		Vector3<T> operator+(const Vector3<T>& v) const {
+		constexpr Vector3<T> operator+(const Vector3<T>& v) const {
 			assert(!v.has_nans());
 			return Vector3(x + v.x, y + v.y, z + v.z);
 		}
 
-		Vector3<T>& operator+=(const Vector3<T>& v) const {
+		constexpr Vector3<T>& operator+=(const Vector3<T>& v) const {
 			assert(!v.has_nans());
 			x += v.x;
 			y += v.y;
@@ -53,14 +55,14 @@ namespace arrt {
 			return *this;
 		}
 
-		Vector3<T> operator-() const { return Vector3<T>(-x, -y, -z); }
+		constexpr Vector3<T> operator-() const { return Vector3<T>(-x, -y, -z); }
 
-		Vector3<T> operator-(const Vector3<T>& v) const {
+		constexpr Vector3<T> operator-(const Vector3<T>& v) const {
 			assert(!v.has_nans());
 			return Vector3(x - v.x, y - v.y, z - v.z);
 		}
 
-		Vector3<T> operator-=(const Vector3<T>& v) const {
+		constexpr Vector3<T> operator-=(const Vector3<T>& v) const {
 			assert(!v.has_nans());
 			x -= v.x;
 			y -= v.y;
@@ -69,12 +71,12 @@ namespace arrt {
 		}
 
 		template <typename U>
-		Vector3<T> operator*(U scalar) const {
+		constexpr Vector3<T> operator*(U scalar) const {
 			return Vector3(scalar * x, scalar * y, scalar * z);
 		}
 
 		template <typename U>
-		Vector3<T>& operator*=(U scalar) {
+		constexpr Vector3<T>& operator*=(U scalar) {
 			assert(!is_nan(scalar));
 			x *= scalar;
 			y *= scalar;
@@ -83,14 +85,14 @@ namespace arrt {
 		}
 
 		template <typename U>
-		Vector3<T> operator/(U fraction) const {
+		constexpr Vector3<T> operator/(U fraction) const {
 			assert(fraction != 0);
 			Float inverse = 1 / static_cast<Float>(fraction);
 			return Vector3<T>(x * inverse, y * inverse, z * inverse);
 		}
 
 		template <typename U>
-		Vector3<T>& operator/=(U fraction) {
+		constexpr Vector3<T>& operator/=(U fraction) {
 			assert(fraction != 0);
 			Float inverse = 1 / static_cast<Float>(fraction);
 			x *= inverse;
@@ -99,8 +101,8 @@ namespace arrt {
 			return *this;
 		}
 
-		Float length_squared() const { return x * x + y * y + z * z; }
-		Float length() const { return std::sqrt(length_squared()); }
+		constexpr Float length_squared() const { return x * x + y * y + z * z; }
+		constexpr Float length() const { return std::sqrt(length_squared()); }
 
 		// Data
 		T x;
@@ -115,12 +117,13 @@ namespace arrt {
 	// Vector3 inline functions
 	export {
 		template <typename T, typename U>
-		inline Vector3<T> operator*(U lhs_scalar, const Vector3<T>& rhs_v) {
+		constexpr Vector3<T> operator*(U lhs_scalar, const Vector3<T>& rhs_v) {
 			return rhs_v * lhs_scalar;
 		}
 
+		// TODO: Should this be constexpr? Does it make sense?
 		template <typename T>
-		inline std::ostream& operator<<(std::ostream& os, const Vector3<T>& v) {
+		constexpr std::ostream& operator<<(std::ostream& os, const Vector3<T>& v) {
 			os << "[ " << v.x << ", " << v.y << ", " << v.z << " ]";
 			return os;
 		}
@@ -132,30 +135,29 @@ namespace arrt {
 			return os;
 		}*/
 
-		// TODO: Should this function be inline?
 		// Gets the absolute value of the vector.
 		template <typename T>
-		Vector3<T> abs(const Vector3<T>& v) {
+		constexpr Vector3<T> abs(const Vector3<T>& v) {
 			return Vector3<T>(std::abs((v.x), std::abs(v.y), std::abs(v.z)));
 		}
 
 		// Calculates the the dot product between the two vectors.
 		template <typename T>
-		inline T dot(const Vector3<T>& v1, const Vector3<T>& v2) {
+		constexpr T dot(const Vector3<T>& v1, const Vector3<T>& v2) {
 			assert(!v1.has_nans() && !v2.has_nans());
 			return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;
 		}
 
 		// Calculates the absolute value of the dot product between the two vectors.
 		template <typename T>
-		inline T abs_dot(const Vector3<T>& v1, const Vector3<T>& v2) {
+		constexpr T abs_dot(const Vector3<T>& v1, const Vector3<T>& v2) {
 			assert(!v1.has_nans() && !v2.has_nans());
 			return std::abs(dot(v1, v2));
 		}
 
 		// Calculates the cross product between the two vectors.
 		template <typename T>
-		inline Vector3<T> cross(const Vector3<T>& v1, const Vector3<T>& v2) {
+		constexpr Vector3<T> cross(const Vector3<T>& v1, const Vector3<T>& v2) {
 			assert(!v1.has_nans() && !v2.has_nans());
 			// The vector elements are converted to double-precision (regardless of the
 			// type of Float) before the subtractions in the Cross() function. Using 
@@ -177,32 +179,32 @@ namespace arrt {
 
 		// Normalizes a vector; does not normalize the vector in place.
 		template <typename T>
-		inline Vector3<T> normalize(const Vector3<T>& v) {
+		constexpr Vector3<T> normalize(const Vector3<T>& v) {
 			return v / v.length();
 		}
 
 		// Returns the smallest coordinate value.
 		template <typename T>
-		T min_component(const Vector3<T>& v) {
+		constexpr T min_component(const Vector3<T>& v) {
 			return std::min(v.x, std::min(v.y, v.z));
 		}
 
 		// Returns the largest coordinate value.
 		template <typename T>
-		T max_component(const Vector3<T>& v) {
+		constexpr T max_component(const Vector3<T>& v) {
 			return std::max(v.x, std::max(v.y, v.z));
 		}
 
 		// Returns the index of the component with the largest value.
 		template <typename T>
-		int max_dimension(const Vector3<T>& v) {
+		constexpr int max_dimension(const Vector3<T>& v) {
 			return (v.x > v.y) ? ((v.x > v.z) ? 0 : 2) :
 				((v.y > v.z) ? 1 : 2);
 		}
 
 		// Returns a vector that is the result of the component-wise minimums.
 		template <typename T>
-		Vector3<T> min(const Vector3<T>& v1, const Vector3<T>& v2) {
+		constexpr Vector3<T> min(const Vector3<T>& v1, const Vector3<T>& v2) {
 			return Vector3<T>(
 				std::min(v1.x, v2.x),
 				std::min(v1.y, v2.y),
@@ -211,7 +213,7 @@ namespace arrt {
 
 		// Returns a vector that is the result of the component-wise maximums.
 		template <typename T>
-		Vector3<T> max(const Vector3<T>& v1, const Vector3<T>& v2) {
+		constexpr Vector3<T> max(const Vector3<T>& v1, const Vector3<T>& v2) {
 			return Vector3<T>(
 				std::max(v1.x, v2.x),
 				std::max(v1.y, v2.y),
@@ -220,7 +222,7 @@ namespace arrt {
 
 		// Permutes the coordinate values according to the index values provided.
 		template <typename T>
-		Vector3<T> permute(const Vector3<T>& v, int x, int y, int z) {
+		constexpr Vector3<T> permute(const Vector3<T>& v, int x, int y, int z) {
 			return Vector3<T>(v[x], v[y], v[z]);
 		}
 
@@ -228,7 +230,7 @@ namespace arrt {
 		// Assumes that v1 is normalized.
 		// Produces an orthonormal basis.
 		/*template <typename T>
-		inline void coordinate_system(const Vector3<T>& v1, Vector3<T>* v2, Vector3<T>* v3) {
+		constexpr void coordinate_system(const Vector3<T>& v1, Vector3<T>* v2, Vector3<T>* v3) {
 			if (std::abs(v1.x) > std::abs(v1.y)) {
 				*v2 = Vector3<T>(-v1.z, 0, v1.x) /
 					std::sqrt(v1.x * v1.x + v1.z * v1.z);

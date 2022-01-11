@@ -3,12 +3,16 @@ import arrt.vector;
 
 #include <iostream>
 
-int main(int argc, char* argv[]) {
-	arrt::ImageOptions img_opt(1.0 / 1.0, 100, 100, 50);
-	arrt::Renderer rt(img_opt);
+using namespace arrt;
 
-	rt.render();
-
-	arrt::Vector3f v1;
-	std::cout << v1 << std::endl;
+int main(/* int argc, char* argv[] */)
+{
+    ImageOptions img_opt(
+        1.0 / 1.0,  // Aspect ratio
+        256,        // Width
+        100,        // Samples per pixel
+        50          // Maximum depth
+    );
+    Renderer rt(img_opt);
+    rt.render();
 }

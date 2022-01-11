@@ -18,19 +18,19 @@
     <ClCompile Include="src\main\arrt.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\utility.ixx">
+    <ClCompile Include="src\arrt\utility.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\renderer.ixx">
+    <ClCompile Include="src\arrt\renderer.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\vector.ixx">
+    <ClCompile Include="src\arrt\vector.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\core.ixx">
+    <ClCompile Include="src\arrt\core.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\core\imageio.ixx">
+    <ClCompile Include="src\arrt\imageio.ixx">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

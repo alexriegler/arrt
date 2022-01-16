@@ -13,15 +13,25 @@ import arrt.vector;
 
 namespace arrt
 {
+    /// <summary>
+    /// Represents the renderer that produces images.
+    /// </summary>
     export class Renderer
     {
     public:
         // Constructors
-        Renderer(ImageOptions img_opt)
+        /// <summary>
+        /// Constructs a renderer object with the specified options.
+        /// </summary>
+        /// <param name="img_opt">The options to be used for producing images</param>
+        explicit Renderer(const ImageOptions& img_opt)
             : m_img_opt(img_opt)
         {}
 
         // Functions
+        /// <summary>
+        /// Starts the rendering process.
+        /// </summary>
         void render()
         {
             auto& os = std::cout;
@@ -56,8 +66,14 @@ namespace arrt
         }
 
     private:
-        // Functions
-        void write_color(std::ostream& out, Vector3f pixel_color, int samples_per_pixel) const
+        // TODO: Add alternative file writing formats, e.g., png, jpeg, etc.
+        /// <summary>
+        /// Writes a color in the PPM format to the std::ostream.
+        /// </summary>
+        /// <param name="out">The output stream to write the color to</param>
+        /// <param name="pixel_color">The color of the pixel</param>
+        /// <param name="samples_per_pixel">The number of samples taken for the pixel</param>
+        void write_color(std::ostream& out, Color pixel_color, int samples_per_pixel) const
         {
             // Extract components
             Float r = pixel_color.x;

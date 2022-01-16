@@ -11,6 +11,8 @@ namespace arrt
     export
     {
         // Aliases
+        // NOTE: There might be some benefit between one or the other, double vs float, but benchmarks need to
+        //       be performed to know for sure.
 #ifdef ARRT_FLOAT_AS_DOUBLE
         using Float = double;
 #else
@@ -28,7 +30,14 @@ namespace arrt
         }
 
         // Constants
+        /// <summary>
+        /// Represents infinity.
+        /// </summary>
         inline constexpr Float infinity = std::numeric_limits<Float>::infinity();
+
+        /// <summary>
+        /// Represent pi, the ratio of a circle’s circumference to its diameter.
+        /// </summary>
         inline constexpr Float pi = std::numbers::pi_v<Float>;
 
         // Utility functions
@@ -52,8 +61,6 @@ namespace arrt
             static std::mt19937 generator;
             return distribution(generator);
         }
-
-        // 
 
         /// <summary>
         /// Returns a random float in the range [min, max).
